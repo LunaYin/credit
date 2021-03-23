@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "cloudstate/entity_key.proto";
+import "google/api/annotations.proto";
+
+package entity;
+
+option go_package = "github.wdf.sap.corp/ICN-Nanjing-Projects/Collaboration-board/credit/entity;entity";
+
+message UserCredit {
+  int32 quantity = 1;
+}
+
+message AddUserCredit {
+  string user_id = 1 [(.cloudstate.entity_key) = true];
+  int32 quantity = 2;
+}
+
+message GetUserCredit {
+  string user_id = 1 [(.cloudstate.entity_key) = true];
+}
+
+service CreditService {
+  rpc AddCredit(AddUserCredit) returns (UserCredit) {
+    option (google.api.http) = {
+      post: "/credit/{user_id}/add",
+      body: "*",
+    };
+  }
+
+  rpc GetCredit(GetUserCredit) returns (UserCredit) {
+    option (google.api.http) = {
+      get: "/credit/{user_id}"
+    };
+  }
+}

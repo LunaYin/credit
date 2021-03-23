@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package persistence;
+
+option go_package = "github.wdf.sap.corp/ICN-Nanjing-Projects/Collaboration-board/credit/persistence;persistence";
+
+// events get persisted
+message CreditAdded {
+  int32 quantity = 1;
+}
+
+// current state gets persisted 
+message Credit {
+  int32 quantity = 1;
+}
